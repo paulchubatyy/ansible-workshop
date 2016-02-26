@@ -1,4 +1,39 @@
-upstream backend  {
-  server 192.168.88.6 weight=1;
-  server 192.168.88.7 weight=2;
+upstream php  {
+  server 192.168.88.6:9000 weight=1;
+  server 192.168.88.7:9000 weight=2;
+}
+
+server {
+  root /var/www/wordpress;
+  ## This should be in your http block and if it is, it's not needed here.
+  index index.php;
+
+  location = /favicon.ico {
+    log_not_found off;
+    access_log off;
+  }
+
+  location = /robots.txt {
+    allow all;
+    log_not_found off;
+    access_log off;
+  }
+
+  location / {
+    # This is cool because no php is touched for static content.
+    # include the "?$args" part so non-default permalinks doesn't break when using query string
+    try_files $uri $uri/ /index.php?$args;
+  }
+
+  location ~ \.php$ {
+    #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    include fastcgi.conf;
+    fastcgi_intercept_errors on;
+    fastcgi_pass php;
+  }
+
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+    expires max;
+    log_not_found off;
+  }
 }
