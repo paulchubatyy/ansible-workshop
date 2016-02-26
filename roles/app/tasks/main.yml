@@ -1,0 +1,9 @@
+---
+- name: Make sure we have the place for website installation
+  become: yes
+  file: path=/var/www/wordpress state=directory owner=www-data group=www-data
+
+- name: Install website
+  template:
+    src: index.html.j2
+    dest: /var/www/wordpress/index.html

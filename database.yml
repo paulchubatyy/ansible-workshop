@@ -2,5 +2,4 @@
 - hosts: database
   become: true
   roles:
-    - general
     - percona
