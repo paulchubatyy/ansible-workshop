@@ -1,0 +1,14 @@
+[database]
+192.168.88.5  ansible_user=user   ansible_port=2222
+
+[backend]
+192.168.88.6  ansbile_user=user   ansible_port=2223
+192.168.88.7  ansbile_user=user   ansible_port=2224
+
+[frontend]
+192.168.88.8  ansbile_user=user   ansible_port=2225
+
+[production:children]
+database
+backend
+frontend
