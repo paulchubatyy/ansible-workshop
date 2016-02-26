@@ -1,0 +1,45 @@
+---
+- name: Listen to network port instead of socket
+  ini_file: dest=/etc/php/7.0/fpm/pool.d/www.conf
+            section=www
+            option=listen
+            value={{ php.fpm.listen }}
+            backup=yes
+  notify:
+    - restart php7-fpm
+
+- name: ensure timezone is set in fpm php.ini
+  ini_file: dest=/etc/php/7.0/fpm/php.ini
+            section=date
+            option=date.timezone
+            value=Europe/Kiev
+            backup=yes
+  notify:
+    - restart php7-fpm
+
+- name: enabling opcache
+  ini_file: dest=/etc/php/7.0/fpm/php.ini
+            section=opcache
+            option=opcache.enable
+            value=1
+            backup=yes
+  notify:
+    - restart php7.0-fpm
+
+- name: Display php errors
+  ini_file: dest=/etc/php/7.0/fpm/php.ini
+            section=PHP
+            option=display_errors
+            value=0
+            backup=yes
+  notify:
+    - restart php7.0-fpm
+
+- name: Display startup errors
+  ini_file: dest=/etc/php/7.0/fpm/php.ini
+            section=PHP
+            option=display_startup_errors
+            value=0
+            backup=yes
+  notify:
+    - restart php7.0-fpm
