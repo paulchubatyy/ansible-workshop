@@ -1,0 +1,41 @@
+---
+- name: Uninstall apache2 if it is installed
+  apt: name=apache2 state=absent
+
+- name: Install nginx
+  apt: pkg=nginx state=latest
+
+- name: Setup nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+    validate: 'nginx -t -c %s'
+  notify:
+    - validate nginx configuration
+    - restart nginx
+
+- name: Create virtualhost
+  template:
+    src: wordpress.conf.j2
+    dest: /etc/nginx/sites-available/wordpress.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable default virtualhost
+  file: path=/etc/nginx/sites-enabled/000-default state=absent
+
+- name: Enable virtualhost
+  file:
+    src: /etc/nginx/sites-available/wordpress.conf
+    dest: /etc/nginx/sites-enabled/wordpress.conf
+    state: link
+  notify:
+    - validate nginx configuration
+    - restart nginx
+
+- name: Allow nginx connections on the firewall
+  ufw: rule=allow name="Nginx Full"
