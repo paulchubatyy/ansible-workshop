@@ -11,9 +11,3 @@
 
 - name: Configure localtime
   file: src=/usr/share/zoneinfo/Europe/Kiev dest=/etc/localtime state=link force=yes backup=yes
-
-- name: Deny all on firewall
-  ufw: state=enabled policy=deny
-
-- name: Allow ssh
-  ufw: rule=allow name=OpenSSH
