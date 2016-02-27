@@ -1,5 +1,9 @@
 ---
 - hosts: backend
   become: true
+  vars:
+    - php:
+        listen: "{{ansible_all_ipv4_addresses[0]}}:9000"
   roles:
+    - general
     - php
