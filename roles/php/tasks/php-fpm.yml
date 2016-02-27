@@ -3,10 +3,10 @@
   ini_file: dest=/etc/php/7.0/fpm/pool.d/www.conf
             section=www
             option=listen
-            value={{ php.fpm.listen }}
+            value="{{php.listen}}"
             backup=yes
   notify:
-    - restart php7-fpm
+    - restart php7.0-fpm
 
 - name: ensure timezone is set in fpm php.ini
   ini_file: dest=/etc/php/7.0/fpm/php.ini
@@ -15,7 +15,7 @@
             value=Europe/Kiev
             backup=yes
   notify:
-    - restart php7-fpm
+    - restart php7.0-fpm
 
 - name: enabling opcache
   ini_file: dest=/etc/php/7.0/fpm/php.ini

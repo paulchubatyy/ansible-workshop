@@ -1,6 +1,12 @@
 ---
-- hosts: web
-  become: true
+- hosts: frontend
+  become: yes
+  vars:
+    nginx_upstreams:
+      - name: php
+        servers:
+          - 192.168.88.6:9000 weight=1
+          - 192.168.88.7:9000 weight=2
   roles:
     - general
     - nginx

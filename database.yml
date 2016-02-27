@@ -2,4 +2,8 @@
 - hosts: database
   become: true
   roles:
+    - general
     - mysql
+  tasks:
+    - name: Open mysql port
+      ufw: rule=allow port=3306

@@ -5,6 +5,11 @@
 - name: Install nginx
   apt: pkg=nginx state=latest
 
+- name: Find nginx user
+  set_fact:
+    nginx_user: www-data
+  when: nginx_user is not defined
+
 - name: Setup nginx
   template:
     src: nginx.conf.j2

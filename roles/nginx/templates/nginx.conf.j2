@@ -51,8 +51,6 @@ http {
     }
 {% endfor %}
 
-    include {{ nginx_conf_path }}/*.conf;
-{% if nginx_conf_path != nginx_vhost_path %}
-    include {{ nginx_vhost_path }}/*.conf;
-{% endif %}
+include /etc/nginx/sites-enabled/*.conf;
+
 }

@@ -1,0 +1,14 @@
+[database]
+aworkshop
+
+[backend]
+aworkshop
+
+
+[frontend]
+aworkshop
+
+[production:children]
+database
+backend
+frontend

@@ -4,6 +4,8 @@
   file: path=/var/www/wordpress state=directory owner=www-data group=www-data
 
 - name: Install website
+  become: yes
+  become_user: www-data
   template:
     src: index.html.j2
     dest: /var/www/wordpress/index.html
