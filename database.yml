@@ -1,6 +1,12 @@
 ---
 - hosts: database
   become: true
+  vars:
+    - root_password: "rPWAg1ZL49aQt59z"
+    - create_app_db: true
+    - db_name: "wordpress"
+    - db_user: "wordpress"
+    - db_user_password: "w0rdpr3ss"
   roles:
     - general
     - mysql
