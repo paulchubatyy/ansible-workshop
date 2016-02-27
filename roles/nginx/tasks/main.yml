@@ -29,6 +29,9 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+    - validate nginx configuration
+    - restart nginx
 
 - name: Disable default virtualhost
   file: path=/etc/nginx/sites-enabled/000-default state=absent

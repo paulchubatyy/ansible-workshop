@@ -1,4 +1,4 @@
 ---
-- hosts: backend
+- hosts: backend:frontend
   roles:
     - app

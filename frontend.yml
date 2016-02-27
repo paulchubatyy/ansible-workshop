@@ -1,6 +1,8 @@
 ---
 - hosts: frontend
   become: yes
+  vars:
+    - nginx_upstreams: "{{ nginx.upstreams }}"
   roles:
     - general
     - nginx
