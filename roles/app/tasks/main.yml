@@ -11,7 +11,7 @@
 - name: Unzip wordpress
   become: yes
   become_user: www-data
-  unarchive: src=/tmp/wordpress.tar.gz dest=/var/www/wordpress/ copy=no
+  unarchive: src=/tmp/wordpress.tar.gz dest=/var/www/wordpress copy=no
 
 - name: Update wp_config.php
   template: src=wp_config.php.j2 dest=/var/www/wordpress/wp_config.php owner=www-data group=www-data mode=0644
